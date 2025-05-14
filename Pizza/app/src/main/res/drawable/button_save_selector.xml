@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Default state (e.g., not pressed) -->
+    <item android:drawable="@android:drawable/ic_menu_save" android:state_enabled="true"/>
+    <!-- Pressed state -->
+    <item android:drawable="@android:drawable/ic_menu_save" android:state_pressed="true"/>
+</selector>

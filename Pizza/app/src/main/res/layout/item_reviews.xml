@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/item_background"
+    android:elevation="4dp">
+
+    <!-- Hình ảnh sản phẩm -->
+<!--    <ImageView-->
+<!--        android:id="@+id/placeholder_image"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:layout_marginBottom="12dp"-->
+<!--        android:background="@drawable/imageborder"-->
+<!--        android:clipToOutline="true"/>-->
+    <ImageView
+        android:id="@+id/placeholder_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/imageborder"
+        android:clipToOutline="true"
+        android:visibility="gone"/>
+
+
+    <!-- Đánh giá sao -->
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:isIndicator="true"
+        android:layout_marginBottom="8dp"
+        android:theme="@style/CustomRatingBar"/>
+
+    <!-- Bình luận đánh giá -->
+    <TextView
+        android:id="@+id/reviewComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bình luận"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Số điện thoại hoặc tên người dùng -->
+    <TextView
+        android:id="@+id/reviewPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Người dùng"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"/>
+
+</LinearLayout>

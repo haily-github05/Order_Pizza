@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.Login2Fragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_table"
+            android:inputType="number"
+            android:backgroundTint="@color/gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/TextPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:backgroundTint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/editTextNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/checkOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/otp_now"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/TextPhone"
+            app:layout_constraintEnd_toEndOf="@id/TextPhone"
+            android:layout_marginTop="6dp" />
+
+        <EditText
+            android:id="@+id/OTP"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/otp"
+            android:inputType="number"
+            android:maxLength="6"
+            android:backgroundTint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/checkOTP"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_marginTop="6dp" />
+
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_home"
+            android:backgroundTint="@color/red"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/OTP"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_marginTop="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

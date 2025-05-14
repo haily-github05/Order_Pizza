@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "126259751993",
+    "project_id": "apporderpizza",
+    "storage_bucket": "apporderpizza.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126259751993:android:eb90b0ef9e7f6f91bf71e8",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXHISN22ZoYLa3ikqDr8CFx2m9BeTzNuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

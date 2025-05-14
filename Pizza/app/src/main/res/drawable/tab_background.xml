@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái được chọn hoặc được nhấn -->
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/red" /> <!-- Màu đỏ khi nhấn -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="@color/red" /> <!-- Màu đỏ khi được chọn -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <!-- Trạng thái bình thường -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" /> <!-- Trong suốt khi không được chọn -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>
