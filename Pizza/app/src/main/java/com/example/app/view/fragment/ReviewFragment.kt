@@ -32,47 +32,38 @@ class ReviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Khởi tạo RecyclerView và Adapter
         reviewAdapter = ReviewAdapter(emptyList())
         binding.recyclerViewReviews.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = reviewAdapter
         }
 
-        // Gọi API lấy đánh giá
         fetchReviews()
     }
 
     private fun fetchReviews() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Gọi API để lấy danh sách đánh giá
-                val response = RetrofitClient.apiService.getReviews()
-
-                // Chuyển về Main Thread để cập nhật giao diện
+                val response = RetrofitClient.feedbackApi.getReviews()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        // Truy cập vào trường "reviews" trong đối tượng response
                         val reviews = response.body()?.reviews ?: emptyList()
-
-                        // Cập nhật Adapter
                         reviewAdapter.updateData(reviews)
-
                         if (reviews.isEmpty()) {
                             Toast.makeText(requireContext(), "Không có đánh giá nào.", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(requireContext(), "Lỗi tải đánh giá: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                        Toast.makeText(requireContext(), "Lỗi tải đánh giá: ${response.code()} - $errorBody", Toast.LENGTH_LONG).show()
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Lỗi: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Lỗi kết nối: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

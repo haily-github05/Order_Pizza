@@ -17,7 +17,7 @@
             android:id="@+id/orderIdText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mã đơn: "
+            android:text="@string/order_id_label"
             android:textStyle="bold"
             android:textColor="#D32F2F"
             android:textSize="18sp" />
@@ -26,7 +26,7 @@
             android:id="@+id/totalAmountText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tổng tiền: "
+            android:text="@string/total_amount_label"
             android:textSize="14sp"
             android:layout_marginTop="6dp" />
 
@@ -34,7 +34,7 @@
             android:id="@+id/timestampText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thời gian: "
+            android:text="@string/timestamp_label"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
@@ -42,7 +42,7 @@
             android:id="@+id/itemsText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Món đã gọi"
+            android:text="@string/items_ordered_label"
             android:textColor="#212121"
             android:textSize="14sp"
             android:layout_marginTop="8dp" />

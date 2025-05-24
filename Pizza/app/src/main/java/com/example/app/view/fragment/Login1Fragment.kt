@@ -17,9 +17,6 @@ import com.example.app.view.activity.MainActivity
 import com.example.app.viewmodel.CartViewModel
 
 class Login1Fragment : Fragment() {
-
-    private var isVietnamese = true
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,14 +44,13 @@ class Login1Fragment : Fragment() {
 
                 cartViewModel.setTableNumber(tableNumber)
 
-                Toast.makeText(requireContext(), "Đăng nhập thành công! Bàn số: $tableNumber", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.enter_login ,tableNumber), Toast.LENGTH_LONG).show()
 
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             } else {
-                val warning = if (isVietnamese) "Vui lòng nhập số bàn" else "Please enter table number"
-                Toast.makeText(requireContext(), warning, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.enter_number), Toast.LENGTH_LONG).show()
             }
         }
 

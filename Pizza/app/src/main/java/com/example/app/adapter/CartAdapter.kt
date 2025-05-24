@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -39,6 +40,11 @@ class CartAdapter(
         holder.itemPrice.text = formatCurrency(item.price)
         holder.itemQuantity.text = item.quantity.toString()
 
+        holder.itemNote.setText(item.note)
+        holder.saveNoteButton.setOnClickListener {
+            val note = holder.itemNote.text.toString().trim().ifEmpty { null }
+            updateCartNote(item, note, holder)
+        }
         holder.increaseButton.setOnClickListener {
             val updatedQuantity = item.quantity + 1
             updateCartItemQuantity(item, updatedQuantity, holder)
@@ -68,22 +74,44 @@ class CartAdapter(
     }
 
     fun getCartItems(): List<Carts> = cartItems
-
+    private fun updateCartNote(item: Carts, note: String?, holder: CartViewHolder) {
+        val tableNumber = cartViewModel.getTableNumber()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.cartApi.updateCartNote(
+                    idProducts = item.idProducts,
+                    tableNumber = tableNumber,
+                    note = note
+                )
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        item.note = note
+                        cartViewModel.updateCart(item.copy())
+                        onCartUpdated(cartItems)
+                        showToastOnce(holder.itemView.context, holder.itemView.context.getString(R.string.note_saved))
+                    } else {
+                        val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                        showToastOnce(holder.itemView.context, "${response.code()} - $errorBody")
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showToastOnce(holder.itemView.context, "${e.message}")
+                }
+            }
+        }
+    }
     private fun updateCartItemQuantity(item: Carts, updatedQuantity: Int, holder: CartViewHolder) {
         val tableNumber = cartViewModel.getTableNumber()
-        if (tableNumber.isEmpty()) {
-            showToastOnce(holder.itemView.context, "Số bàn không hợp lệ")
-            return
-        }
         val cartUpdate = mapOf(
             "idProducts" to item.idProducts,
             "quantity" to updatedQuantity.toString(),
             "table_number" to tableNumber
         )
-        Log.d("CartAdapter", "Sending update request: $cartUpdate")
         val oldQuantity = item.quantity
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                Log.d("CartAdapter", "Sending update: $cartUpdate")
                 val response = RetrofitClient.cartApi.updateCartItem(cartUpdate)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
@@ -97,13 +125,13 @@ class CartAdapter(
                         }
                         onCartUpdated(cartItems)
                     } else {
-                        val errorBody = response.errorBody()?.string()
-                        showToastOnce(holder.itemView.context, "Lỗi cập nhật số lượng: ${response.code()} - $errorBody")
+                        val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                        showToastOnce(holder.itemView.context, "${response.code()} - $errorBody")
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    showToastOnce(holder.itemView.context, "Lỗi mạng: ${e.message}")
+                    showToastOnce(holder.itemView.context, "${e.message}")
                 }
             }
         }
@@ -111,10 +139,6 @@ class CartAdapter(
 
     private fun deleteCartItem(item: Carts, holder: CartViewHolder) {
         val tableNumber = cartViewModel.getTableNumber()
-        if (tableNumber.isEmpty()) {
-            showToastOnce(holder.itemView.context, "Số bàn không hợp lệ")
-            return
-        }
         val deleteMap = mapOf(
             "idProducts" to item.idProducts,
             "table_number" to tableNumber
@@ -129,17 +153,16 @@ class CartAdapter(
                         holder.itemQuantity.text = "0"
                         onDelete(item)
                         onCartUpdated(cartItems)
-                        showToastOnce(holder.itemView.context, "Đã xóa ${item.name}")
+                        val context = holder.itemView.context
+                        showToastOnce(context, context.getString(R.string.item_deleted, item.name))
                     } else {
                         val errorBody = response.errorBody()?.string()
-                        Log.e("CartAdapter", "Lỗi xóa: ${response.code()} - $errorBody")
-                        showToastOnce(holder.itemView.context, "Lỗi xóa: ${response.code()} - $errorBody")
+                        showToastOnce(holder.itemView.context, "${response.code()} - $errorBody")
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Log.e("CartAdapter", "Lỗi mạng: ${e.message}")
-                    showToastOnce(holder.itemView.context, "Lỗi mạng: ${e.message}")
+                    showToastOnce(holder.itemView.context, "${e.message}")
                 }
             }
         }
@@ -149,9 +172,11 @@ class CartAdapter(
         val itemName: TextView = itemView.findViewById(R.id.itemName)
         val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
         val itemQuantity: TextView = itemView.findViewById(R.id.itemQuantity)
+        val itemNote: EditText = itemView.findViewById(R.id.itemNote)
         val increaseButton: ImageButton = itemView.findViewById(R.id.increaseButton)
         val decreaseButton: ImageButton = itemView.findViewById(R.id.decreaseButton)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
+        val saveNoteButton: ImageButton = itemView.findViewById(R.id.saveNoteButton)
     }
 
     private var lastToastTime = 0L

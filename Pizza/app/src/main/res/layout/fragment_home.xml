@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Tìm món ăn..."
+                android:hint="@string/search"
                 android:paddingStart="10dp"
                 android:textSize="16sp"
                 android:inputType="text"
@@ -39,7 +39,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/search"
-                android:contentDescription="Search Icon"
+                android:contentDescription="@string/search_icon_description"
                 android:layout_marginStart="8dp" />
 
         </LinearLayout>
@@ -77,14 +77,14 @@
                                     android:id="@+id/greetingText"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Chào buổi trưa"
+                                    android:text="@string/greeting_text"
                                     android:textSize="20dp"
                                     android:textStyle="bold"/>
                                 <TextView
                                     android:id="@+id/guestLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" Quý khách!"
+                                    android:text="@string/guest_label"
                                     android:textColor="@color/blue"
                                     android:textStyle="bold"
                                     android:textSize="20dp" />
@@ -94,7 +94,7 @@
                                 android:id="@+id/tableInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Chúng tôi sẽ trả đồ cho bạn tại bàn: BAN06"
+                                android:text="@string/table_info"
                                 android:textSize="14sp"
                                 android:background="@drawable/bg_table_tag"
                                 android:paddingHorizontal="8dp"
@@ -147,7 +147,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Gọi nhân viên"
+                                        android:text="@string/contact_staff"
                                         android:textSize="14sp"
                                         android:layout_marginTop="8dp"/>
                                 </LinearLayout>
@@ -169,7 +169,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Đánh giá"
+                                        android:text="@string/feedback"
                                         android:textSize="14sp"
                                         android:layout_marginTop="8dp"/>
                                 </LinearLayout>
@@ -180,7 +180,7 @@
                             android:layout_width="280dp"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Có Thể Bạn Sẽ Thích"
+                            android:text="@string/suggestion_title"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -217,7 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="8dp"
-                        android:text="Siêu ưu đãi"
+                        android:text="@string/promotion_title"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                     <HorizontalScrollView
@@ -248,7 +248,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pizza Khuyến Mãi"
+                                    android:text="@string/pizza_promo"
                                     android:textSize="16sp"
                                     android:layout_marginTop="6dp"
                                     android:textColor="#000000" />
@@ -271,7 +271,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pizza 3 Miếng"
+                                    android:text="@string/pizza_three_slices"
                                     android:textSize="16sp"
                                     android:layout_marginTop="6dp"
                                     android:textColor="#000000" />
@@ -294,7 +294,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pizza Ưu Đãi"
+                                    android:text="@string/pizza_offer"
                                     android:textSize="16sp"
                                     android:layout_marginTop="6dp"
                                     android:textColor="#000000" />
@@ -316,7 +316,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pizza Đặc Biệt"
+                                    android:text="@string/pizza_special"
                                     android:textSize="16sp"
                                     android:layout_marginTop="6dp"
                                     android:textColor="#000000" />
@@ -338,7 +338,7 @@
                 <TextView
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:text="Thực đơn"
+                    android:text="@string/menu_title"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:padding="8dp" />
@@ -393,7 +393,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="COMBO 1"
+                            android:text="@string/combo_1"
                             android:textSize="16sp"
                             android:layout_marginTop="6dp"
                             android:textColor="#000000" />
@@ -416,7 +416,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="COMBO 3 Người"
+                            android:text="@string/combo_three_people"
                             android:textSize="16sp"
                             android:layout_marginTop="6dp"
                             android:textColor="#000000" />
@@ -439,7 +439,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="COMBO Bữa Trưa"
+                            android:text="@string/combo_lunch"
                             android:textSize="16sp"
                             android:layout_marginTop="6dp"
                             android:textColor="#000000" />
@@ -462,7 +462,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="COMBO 4"
+                            android:text="@string/combo_4"
                             android:textSize="16sp"
                             android:layout_marginTop="6dp"
                             android:textColor="#000000" />
@@ -484,7 +484,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="COMBO 1 Người"
+                            android:text="@string/combo_one_person"
                             android:textSize="16sp"
                             android:layout_marginTop="6dp"
                             android:textColor="#000000" />
@@ -499,7 +499,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Liên hệ với PIZZA HOT"
+            android:text="@string/contact_pizza_hot"
             android:textSize="20dp"
             android:textStyle="bold"/>
         <LinearLayout
@@ -523,7 +523,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cần sự hỗ trợ?"
+                android:text="@string/support_text"
                 android:textSize="16sp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -553,17 +553,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Điều kiện và điều khoản"
+                android:text="@string/terms_conditions"
                 android:textSize="16sp"/>
         </LinearLayout>
 
     </LinearLayout>
-<!--    <FrameLayout-->
-<!--        android:id="@+id/searchResultContainer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_gravity="top"-->
-<!--        android:background="#FFFFFF"-->
-<!--        android:elevation="6dp" />-->
 </androidx.core.widget.NestedScrollView>
 

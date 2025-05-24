@@ -7,16 +7,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-//    private const val BASE_URL = "http://10.0.2.2:8080/myapi/"
-    private const val BASE_URL = "http://192.168.1.122:8080/myapi/"
-    // Cấu hình OkHttpClient chung
+    private const val BASE_URL = "http://10.0.2.2:8080/myapi/"
+//    private const val BASE_URL = "http://192.168.1.122:8080/myapi/"
+//private const val BASE_URL = "http://172.16.0.145:8080/myapi/"
+
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
         .build()
 
-    // Hàm tạo Retrofit client chung
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -25,7 +25,6 @@ object RetrofitClient {
             .build()
     }
 
-    // API Service chung
     val apiService: ApiService by lazy {
         getRetrofit().create(ApiService::class.java)
     }
@@ -41,7 +40,10 @@ object RetrofitClient {
     val orderApi: OrderApiService by lazy {
         getRetrofit().create(OrderApiService::class.java)
     }
-//    private val gson = GsonBuilder()
-//        .setLenient()
-//        .create()
+    val feedbackApi : FeedbackApiService by lazy {
+        getRetrofit().create(FeedbackApiService::class.java)
+    }
+    private val gson = GsonBuilder()
+        .setLenient()
+        .create()
 }

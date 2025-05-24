@@ -28,20 +28,33 @@ class OrderAdapter(private var orders: List<Orders>) :
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
-        holder.orderIdText.text = "Mã đơn: ${order.order_id}"
-        holder.totalAmountText.text = "Tổng tiền: ${"%,.0f".format(order.totalAmount)} VND"
-        holder.timestampText.text = "Thời gian: ${formatDate(order.timestamp)}"
+        val context = holder.itemView.context
+
+        holder.orderIdText.text = "${context.getString(R.string.order_id_label)} ${order.order_id}"
+        holder.totalAmountText.text = "${context.getString(R.string.total_amount_label)} ${"%,.0f".format(order.totalAmount)} VND"
+        holder.timestampText.text = "${context.getString(R.string.timestamp_label)} ${formatDate(order.timestamp)}"
 
         val itemDetails = buildString {
-            append("Món đã gọi:\n")
+            append("${context.getString(R.string.items_ordered_label)}:\n")
             order.items.forEach {
-                append("- ${it.name} x${it.quantity} ( ${String.format("%,.0f", it.price)} VND")
-                if (!it.note.isNullOrBlank()) {
-                    append("; Ghi chú: ${it.note}")
+                val notePart = if (!it.note.isNullOrBlank()) {
+                    context.getString(R.string.note_text, it.note)
+                } else {
+                    ""
                 }
-                append(")\n")
+                append(
+                    context.getString(
+                        R.string.item_line,
+                        it.name,
+                        it.quantity,
+                        String.format("%,.0f", it.price),
+                        notePart
+                    )
+                )
+                append("\n")
             }
         }
+
 
         holder.itemsText.text = itemDetails
     }

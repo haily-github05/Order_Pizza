@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Liên hệ tới nhân viên"
+        android:text="@string/contact_staff_title"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
@@ -20,14 +20,14 @@
         android:id="@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:hint="Bạn cần hỗ trợ gì từ nhân viên?"
+        android:hint="@string/contact_message_hint"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="10dp"/>
     <Button
         android:id="@+id/btnCall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Gọi ngay"
+        android:text="@string/contact_call_button"
         android:backgroundTint="@color/red"
         android:textColor="@android:color/white" />
 

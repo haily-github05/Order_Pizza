@@ -1,93 +1,68 @@
-
 package com.example.app.adapter
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.R
-import com.example.app.model.Reviews
-import com.bumptech.glide.Glide
+import com.example.app.model.Feedback
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class ReviewAdapter(private var reviews: List<Reviews>) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+class ReviewAdapter(
+    private var reviews: List<Feedback>
+) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
-    // ViewHolder chứa các thành phần cần hiển thị
-    inner class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
         val reviewComment: TextView = itemView.findViewById(R.id.reviewComment)
         val reviewPhone: TextView = itemView.findViewById(R.id.reviewPhone)
-        val productImage: ImageView = itemView.findViewById(R.id.placeholder_image)
+        val reviewTime: TextView = itemView.findViewById(R.id.reviewTime)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_reviews, parent, false)
-        return ReviewViewHolder(itemView)
+        return ReviewViewHolder(view)
     }
 
-//    override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-//        val currentReview = reviews[position]
-//
-//        // Cập nhật dữ liệu cho các thành phần trong view
-//        holder.ratingBar.rating = currentReview.rating.toFloat()
-//        holder.reviewComment.text = currentReview.comment
-//        holder.reviewPhone.text = currentReview.phone_number
-//
-//        // Kiểm tra nếu có ảnh base64
-//        if (!currentReview.image_product.isNullOrEmpty()) {
-//            val imageBitmap = currentReview.image_product?.decodeBase64ToBitmap() // Safe call
-//            holder.productImage.setImageBitmap(imageBitmap)
-//        } else {
-//            // Nếu không có ảnh, đặt ImageView thành hình ảnh trống
-//            holder.productImage.setImageDrawable(null) // Đặt ImageView thành null để trống
-//        }
-//    }
-override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-    val currentReview = reviews[position]
+    override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
+        val review = reviews[position]
 
-    // Cập nhật dữ liệu cho các thành phần trong view
-    holder.ratingBar.rating = currentReview.rating.toFloat()
-    holder.reviewComment.text = currentReview.comment
+        holder.ratingBar.rating = review.rating.toFloat()
+        holder.reviewComment.text = review.feedback_text ?: "Không có bình luận"
+        holder.reviewPhone.text = review.phone_number.replaceRange(3, 7, "****")
 
-    // Ẩn 7 số đầu của số điện thoại
-    holder.reviewPhone.text = "******" + currentReview.phone_number.takeLast(3)
-
-    // Kiểm tra nếu có hình ảnh thì hiển thị, nếu không thì ẩn
-    if (currentReview.image_product.isNullOrEmpty()) {
-        holder.productImage.visibility = View.GONE
-    } else {
-        holder.productImage.visibility = View.VISIBLE
-        Glide.with(holder.itemView.context)
-            .load(currentReview.image_product)
-            .into(holder.productImage)
+        // Định dạng thời gian
+        review.created_at?.let { createdAt ->
+            try {
+                val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                val date = inputFormat.parse(createdAt)
+                holder.reviewTime.text = holder.itemView.context.getString(
+                    R.string.review_time_placeholder,
+                    outputFormat.format(date)
+                )
+            } catch (e: Exception) {
+                holder.reviewTime.text = holder.itemView.context.getString(
+                    R.string.review_time_placeholder,
+                    createdAt
+                )
+            }
+        } ?: run {
+            holder.reviewTime.text = holder.itemView.context.getString(
+                R.string.review_time_placeholder,
+                "Không xác định"
+            )
+        }
     }
-}
 
+    override fun getItemCount(): Int = reviews.size
 
-    override fun getItemCount(): Int {
-        return reviews.size
-    }
-    // Sửa hàm updateData để thay đổi giá trị của reviews
-    fun updateData(newReviews: List<Reviews>) {
+    fun updateData(newReviews: List<Feedback>) {
         reviews = newReviews
         notifyDataSetChanged()
     }
-}
-
-// Mở rộng String để chuyển Base64 thành Bitmap
-fun String.decodeBase64ToBitmap(): Bitmap? {
-    return try {
-        val decodedString = Base64.decode(this, Base64.DEFAULT)
-        BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-    } catch (e: IllegalArgumentException) {
-        null
-    }
-
 }

@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Tìm món ăn..."
+                android:hint="@string/search"
                 android:background="@null"
                 android:textColorHint="#757575"
                 android:textSize="16sp"

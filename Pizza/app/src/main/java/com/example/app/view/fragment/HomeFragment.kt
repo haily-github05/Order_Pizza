@@ -27,6 +27,7 @@ import com.example.app.rest.RetrofitClient
 import com.example.app.ui.SearchResultFragment
 import com.example.app.viewmodel.CartViewModel
 import com.example.app.viewmodel.ProductViewModel
+import com.example.app.model.Feedback
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -121,17 +122,17 @@ class HomeFragment : Fragment() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val greeting = when (hour) {
-            in 5..10 -> "Chào buổi sáng"
-            in 11..13 -> "Chào buổi trưa"
-            in 14..17 -> "Chào buổi chiều"
-            else -> "Chào buổi tối"
+            in 5..10 -> getString(R.string.greeting_morning)
+            in 11..13 -> getString(R.string.greeting_noon)
+            in 14..17 -> getString(R.string.greeting_afternoon)
+            else -> getString(R.string.greeting_evening)
         }
         binding.greetingText.text = greeting
 
         // Hiển thị số bàn
         val sharedPref = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         val tableNumber = sharedPref.getString("TABLE_NUMBER", "") ?: ""
-        binding.tableInfo.text = "Chúng tôi sẽ trả đồ cho bạn tại bàn: BÀN $tableNumber"
+        binding.tableInfo.text = getString(R.string.table_info, tableNumber)
         if (cartViewModel.getTableNumber().isEmpty() && tableNumber.isNotEmpty()) {
             cartViewModel.setTableNumber(tableNumber)
         }
@@ -166,16 +167,17 @@ class HomeFragment : Fragment() {
         }
 
         // Gọi hỗ trợ
+        // Gọi hỗ trợ
         binding.tvSupport.setOnClickListener {
             AlertDialog.Builder(requireContext())
-                .setTitle("Gọi hỗ trợ")
-                .setMessage("Bạn có muốn gọi đến số 19001182 không?")
-                .setPositiveButton("Gọi") { _, _ ->
+                .setTitle(R.string.support_dialog_title)
+                .setMessage(R.string.support_dialog_message)
+                .setPositiveButton(R.string.support_dialog_call) { _, _ ->
                     val intent = Intent(Intent.ACTION_DIAL)
                     intent.data = Uri.parse("tel:19001182")
                     startActivity(intent)
                 }
-                .setNegativeButton("Hủy", null)
+                .setNegativeButton(R.string.support_dialog_cancel, null)
                 .show()
         }
 

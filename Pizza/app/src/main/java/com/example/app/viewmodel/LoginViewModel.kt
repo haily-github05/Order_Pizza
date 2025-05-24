@@ -6,12 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.app.model.OtpSendRequest
 import com.example.app.model.Users
 import com.example.app.repository.UserRepository
 import com.example.app.rest.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -26,31 +28,6 @@ class LoginViewModel : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    private val _otpState = MutableLiveData<OtpState>()
-    val otpState: LiveData<OtpState> get() = _otpState
-//    fun sendOtp(phone: String) {
-//        _otpState.value = OtpState.Loading
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                Log.d(TAG, "Sending OTP to phone: $phone")
-//                val response = RetrofitClient.apiService.sendOtp(OtpRequest(phone))
-//                _otpState.postValue(
-//                    if (response.success) OtpState.Success(response.message)
-//                    else OtpState.Error(response.message)
-//                )
-//            } catch (e: HttpException) {
-//                val errorBody = e.response()?.errorBody()?.string()
-//                Log.e(TAG, "HTTP error: ${e.code()}, body: $errorBody")
-//                _otpState.postValue(OtpState.Error("Lỗi server: ${e.code()} - $errorBody"))
-//            } catch (e: IOException) {
-//                Log.e(TAG, "Network error: ${e.message}")
-//                _otpState.postValue(OtpState.Error("Lỗi mạng: Kiểm tra kết nối internet"))
-//            } catch (e: Exception) {
-//                Log.e(TAG, "Unexpected error: ${e.message}", e)
-//                _otpState.postValue(OtpState.Error("Lỗi không xác định: ${e.message}"))
-//            }
-//        }
-//    }
     // Hàm để kiểm tra số điện thoại và thêm người dùng nếu cần
     fun validateLogin(phone: String) {
         viewModelScope.launch {
@@ -102,9 +79,18 @@ class LoginViewModel : ViewModel() {
             }
         }
     }
-}
-sealed class OtpState {
-    object Loading : OtpState()
-    data class Success(val message: String) : OtpState()
-    data class Error(val message: String) : OtpState()
+    fun sendOtpToEmail(email: String, otp: String, callback: (Boolean, String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitClient.apiService.sendOtp(OtpSendRequest(email, otp))
+                if (response.isSuccessful && response.body()?.success == true) {
+                    callback(true, response.body()?.message ?: "Gửi thành công")
+                } else {
+                    callback(false, response.body()?.message ?: "Gửi thất bại")
+                }
+            } catch (e: Exception) {
+                callback(false, "Lỗi: ${e.message}")
+            }
+        }
+    }
 }

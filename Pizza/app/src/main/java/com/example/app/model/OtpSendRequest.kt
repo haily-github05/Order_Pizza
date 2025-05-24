@@ -1,7 +1,7 @@
 package com.example.app.model
 
-data class SmsResponse(
-    val phone: String,
+data class OtpSendRequest(
+    val email: String,
     val message: String
 )
 

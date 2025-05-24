@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.app.AlertDialog
+import android.app.AlertDialog.*
 import com.example.app.R
 
 class OrderPizzaFragment : Fragment() {
@@ -43,16 +44,14 @@ class OrderPizzaFragment : Fragment() {
             adapter = orderAdapter
         }
 
-        // Lấy số điện thoại từ SharedPreferences
         val sharedPref = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         val phoneNumber = sharedPref.getString("phone_number", null)
 
         val loginType = sharedPref.getString("login_type", "guest")
         if (loginType == "guest" || phoneNumber == null) {
-            // Người dùng là khách hoặc chưa đăng nhập đầy đủ
             AlertDialog.Builder(requireContext())
-                .setTitle("Yêu cầu đăng nhập")
-                .setMessage("Vui lòng đăng nhập bằng số điện thoại để truy cập chức năng này")
+                .setTitle(R.string.required)
+                .setMessage(R.string.required_phone)
                 .setPositiveButton("OK") { dialog, _ ->
                     dialog.dismiss()
                     val homeFragment = HomeFragment()
@@ -65,7 +64,7 @@ class OrderPizzaFragment : Fragment() {
             return
         }
         if (phoneNumber == null) {
-            Toast.makeText(requireContext(), "Không tìm thấy số điện thoại. Vui lòng đăng nhập.", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.phone_not_found), Toast.LENGTH_LONG).show()
             return
         }
 

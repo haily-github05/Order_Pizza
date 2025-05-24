@@ -5,6 +5,6 @@ data class Carts(
     val price: Double,
     val name: String,
     var quantity: Int,
-    var note: String? = null,
+    var note : String?,
     val tableNumber: String
 )

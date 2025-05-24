@@ -32,7 +32,6 @@ class SearchViewModel : ViewModel() {
 
     fun searchProducts(query: String) {
         if (query.isBlank()) {
-            // Khi query trống, hiển thị sản phẩm PIZZA mặc định
             fetchDefaultPizzaProducts()
             return
         }
@@ -57,7 +56,6 @@ class SearchViewModel : ViewModel() {
                     _isLoading.value = false
                     Log.e("SearchViewModel", "Lỗi API: ${e.message}", e)
                     _error.value = "Lỗi: ${e.message}"
-                    // Dữ liệu giả nếu API lỗi
                     _products.value = listOf(
                         Products("1", "Pizza Hải Sản", "Pizza với tôm, mực", 150000.0, "pizza", "PIZZA", 0),
                         Products("2", "Pizza Phô Mai", "Pizza phủ phô mai", 120000.0, "pizza", "PIZZA", 0)
@@ -72,13 +70,11 @@ class SearchViewModel : ViewModel() {
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                Log.d("SearchViewModel", "Lấy sản phẩm gợi ý mặc định (type = PIZZA)")
-                // Gọi API để lấy sản phẩm có type = PIZZA
                 val response = RetrofitClient.productApiService.getProductsByType("PIZZA")
                 Log.d("SearchViewModel", "API trả về gợi ý: ${response.size} sản phẩm - $response")
                 withContext(Dispatchers.Main) {
                     _isLoading.value = false
-                    _products.value = response.take(4) // Giới hạn tối đa 4 sản phẩm
+                    _products.value = response.take(5)
                     _suggestions.value = response.map { it.name }
                     if (response.isEmpty()) {
                         // Dữ liệu giả nếu API rỗng
@@ -92,7 +88,6 @@ class SearchViewModel : ViewModel() {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     _isLoading.value = false
-                    Log.e("SearchViewModel", "Lỗi API gợi ý: ${e.message}", e)
                     _error.value = "Lỗi khi lấy gợi ý: ${e.message}"
                     // Dữ liệu giả nếu API lỗi
                     _products.value = listOf(

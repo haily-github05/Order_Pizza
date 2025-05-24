@@ -11,7 +11,7 @@
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thanh toán"
+        android:text="@string/payment_title"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/red"
@@ -26,7 +26,7 @@
             android:id="@+id/totalAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tổng Tiền: 0 VND"
+            android:text="@string/total_amount"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
@@ -37,7 +37,7 @@
             android:id="@+id/text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bạn muốn thanh toán bằng ?"
+            android:text="@string/payment_method_prompt"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/totalAmount"
@@ -57,26 +57,26 @@
                 android:id="@+id/Option1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💵 Tiền mặt" />
+                android:text="@string/payment_option_cash" />
 
             <RadioButton
                 android:id="@+id/Option2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💳 Thẻ ngân hàng" />
+                android:text="@string/payment_option_card" />
 
             <RadioButton
                 android:id="@+id/Option3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📱 Ứng dụng điện thoại" />
+                android:text="@string/payment_option_mobile_app" />
         </RadioGroup>
 
         <Button
             android:id="@+id/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Xác nhận thanh toán"
+            android:text="@string/confirm_payment_button"
             android:backgroundTint="@color/red"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"

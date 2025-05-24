@@ -58,21 +58,13 @@ class MenuAdapter(
 
         holder.addToCartButton.setOnClickListener {
             val tableNumber = cartViewModel.getTableNumber()
-            if (tableNumber.isEmpty()) {
-                Toast.makeText(
-                    context,
-                    "Vui lòng chọn số bàn trước khi thêm vào giỏ hàng!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
-
             val cartItem = Carts(
                 idProducts = product.idProducts,
                 name = product.name,
                 price = product.price,
                 quantity = 1,
-                tableNumber = tableNumber
+                tableNumber = tableNumber,
+                note=""
             )
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -81,15 +73,16 @@ class MenuAdapter(
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             onAddToCart(cartItem)
+                            val context = holder.itemView.context
                             Toast.makeText(
                                 context,
-                                "${product.name} đã thêm vào giỏ hàng!",
+                                context.getString(R.string.add_product, product.name),
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
                             Toast.makeText(
                                 context,
-                                "Lỗi thêm giỏ: ${response.code()}",
+                                "${response.code()}",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -98,7 +91,7 @@ class MenuAdapter(
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
                             context,
-                            "Lỗi: ${e.message}",
+                            "${e.message}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

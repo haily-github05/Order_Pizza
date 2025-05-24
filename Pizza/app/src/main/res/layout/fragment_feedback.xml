@@ -10,28 +10,10 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
-        <!-- Ảnh người dùng -->
-        <ImageView
-            android:id="@+id/userImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_add_a_photo"
-        android:scaleType="centerCrop"
-        android:background="@drawable/border_textview" />
-
-        <!-- Nút chọn ảnh -->
-        <Button
-            android:id="@+id/selectImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chọn ảnh"
-            android:backgroundTint="@color/red"
-            android:textColor="@color/white"/>
 
         <!-- Tiêu đề -->
         <TextView
-            android:text="Đánh giá trải nghiệm của bạn"
+            android:text="@string/feedback_title"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
@@ -51,7 +33,7 @@
             android:id="@+id/feedbackEditText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Ý kiến của bạn..."
+            android:hint="@string/feedback_hint"
             android:gravity="top"
             android:inputType="textMultiLine" />
 
@@ -60,7 +42,7 @@
             android:id="@+id/submitRatingButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gửi đánh giá"
+            android:text="@string/submit_rating_button"
             android:backgroundTint="@color/red"
             android:textColor="@color/white" />
 

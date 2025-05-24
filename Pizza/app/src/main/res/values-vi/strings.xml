@@ -1,0 +1,173 @@
+<resources>
+    //HelloApp
+    <string name="app_name">OrderPizza</string>
+    <string name="hello_text">Xin chào quý khách!</string>
+    <string name="tab_guest">Khách vãng lai</string>
+    <string name="tab_member">Khách thành viên</string>
+    <string name="btn_language">English</string>
+    //Login
+    <string name="table_number">Vui lòng nhập số bàn!</string>
+    <string name="phone">Vui lòng nhập số điện thoại!</string>
+    <string name="otp_now">Gửi mã OTP</string>
+    <string name="otp">Nhập mã OTP</string>
+    <string name="login">Vào Trang chủ</string>
+    <string name="enter_number">Vui lòng nhập số bàn!</string>
+    <string name="enter_login">Đăng nhập thành công! Bàn số: %1$s</string>
+    <string name="error_login">Đăng nhập lỗi!</string>
+    <string name="error_phone">Vui lòng nhập số điện thoại!</string>
+    <string name="email">Email</string>
+    <string name="error_otp">OTP không đúng</string>
+    <string name="enter_otp">Vui lòng nhập mã OTP!</string>
+    //Home
+    <string name="search">Tìm món ăn...</string>
+    <string name="search_icon_description">Icon Tìm kiếm</string>
+    <string name="greeting_text">Chào buổi trưa</string>
+    <string name="guest_label">Quý khách!</string>
+    <string name="order">Đặt hàng</string>
+    <string name="contact_staff">Gọi nhân viên</string>
+    <string name="feedback">Đánh giá</string>
+    <string name="suggestion_title">Có Thể Bạn Sẽ Thích</string>
+    <string name="promotion_title">Siêu ưu đãi</string>
+    <string name="pizza_promo">Pizza Khuyến Mãi</string>
+    <string name="pizza_three_slices">Pizza 3 Miếng</string>
+    <string name="pizza_offer">Pizza Ưu Đãi</string>
+    <string name="pizza_special">Pizza Đặc Biệt</string>
+    <string name="menu_title">Thực đơn</string>
+    <string name="add">Xem thêm</string>
+    <string name="combo_1">COMBO 1</string>
+    <string name="combo_three_people">COMBO 3 Người</string>
+    <string name="combo_lunch">COMBO Bữa Trưa</string>
+    <string name="combo_4">COMBO 4</string>
+    <string name="combo_one_person">COMBO 1 Người</string>
+    <string name="contact_pizza_hot">Liên hệ với PIZZA HOT</string>
+    <string name="support_text">Cần sự hỗ trợ?</string>
+    <string name="phone_underlined">Hotline: 0123 456 789</string> <!-- Example, replace with actual phone -->
+    <string name="terms_conditions">Điều kiện và điều khoản</string>
+    <string name="greeting_morning">Chào buổi sáng _ </string>
+    <string name="greeting_noon">Chào buổi trưa _ </string>
+    <string name="greeting_afternoon">Chào buổi chiều _ </string>
+    <string name="greeting_evening">Chào buổi tối _ </string>
+    <string name="table_info">Chúng tôi sẽ trả đồ cho bạn tại bàn: BÀN %s</string>
+    <string name="support_dialog_title">Gọi hỗ trợ</string>
+    <string name="support_dialog_message">Bạn có muốn gọi đến số 19001182 không?</string>
+    <string name="support_dialog_call">Gọi</string>
+    <string name="support_dialog_cancel">Hủy</string>
+    <string name="add_product">Đã thêm %1$s vào giỏ hàng</string>
+
+    //Item Home
+    <string name="menu_item_name_placeholder">Pizza title</string>
+    <string name="menu_item_description_placeholder">Pizza description</string>
+    <string name="menu_item_price_placeholder">%s VND</string>
+    <string name="add_to_cart_button">Thêm vào giỏ hàng</string>
+    //Cart
+    <string name="table">Bàn số: %s</string>
+    <string name="total_amount">Tổng Tiền: %s VND</string>
+    <string name="checkout_button">Gọi món</string>
+
+    //Item Cart
+    <string name="item_name_placeholder">Pizza Margherita</string>
+    <string name="item_price_placeholder">%s VND</string>
+    <string name="item_note_hint">Ghi chú cho món (ví dụ: ít cay, thêm phô mai...)</string>
+    <string name="delete_button_description">Xóa</string>
+    <string name="save_note_button_description">Lưu ghi chú</string>
+    <string name="decrease_button_description">Giảm</string>
+    <string name="increase_button_description">Tăng</string>
+    <string name="item_deleted">Đã xóa: %1$s</string>
+    <string name="note_saved">Ghi chú đã được lưu</string>
+
+    //Contact
+    <string name="contact_staff_title">Liên hệ tới nhân viên</string>
+    <string name="contact_message_hint">Bạn cần hỗ trợ gì từ nhân viên?</string>
+    <string name="contact_call_button">Gọi ngay</string>
+    //Feedback
+    <string name="select_image_button">Chọn ảnh</string>
+    <string name="feedback_title">Đánh giá trải nghiệm của bạn</string>
+    <string name="feedback_hint">Ý kiến của bạn...</string>
+    <string name="submit_rating_button">Gửi đánh giá</string>
+    <string name="review_input_required">Vui lòng nhập đánh giá và chọn số sao!</string>
+    <string name="review_time_placeholder">Đánh giá vào: %s</string>
+    //Menu
+    <string name="tab_buy_one_get_one">MUA 1 ĐƯỢC 2</string>
+    <string name="tab_buy_one_get_three">MUA 1 ĐƯỢC 3</string>
+    <string name="tab_combo">COMBO</string>
+    <string name="tab_pizza">PIZZA</string>
+    <string name="tab_drinks">ĐỒ UỐNG</string>
+    <string name="tab_my_box">MY BOX</string>
+    <string name="tab_menu_49k">MENU 49K</string>
+    <string name="tab_pasta">PASTA</string>
+    //Item Product
+    <string name="promo_title_placeholder">MUA 1 TẶNG 1 PIZZA</string>
+    <string name="promo_description_placeholder">Mua Pizza Cỡ Vừa + Nước</string>
+    <string name="promo_price_placeholder">Giá: %sđ</string>
+    //Notification
+    <string name="tab_promotion_news">Tin khuyến mãi</string>
+    <string name="tab_user_news">Tin của bạn</string>
+    <string name="empty_messages_text">Không có tin nhắn</string>
+    //Order
+    <string name="order_history_title">Lịch sử đơn hàng</string>
+    <string name="required">Yêu cầu đăng nhập</string>
+    <string name="required_phone">Vui lòng đăng nhập bằng số điện thoại để truy cập chức năng này!</string>
+    <string name="phone_not_found">Không tìm thấy số điện thoại. Vui lòng đăng nhập.</string>
+    //Item Order
+    <string name="order_id_label">Mã đơn:</string>
+    <string name="total_amount_label">Tổng tiền:</string>
+    <string name="timestamp_label">Thời gian:</string>
+    <string name="items_ordered_label">Món đã gọi</string>
+    <string name="item_line">- %1$s x%2$d (%3$s VND%4$s)</string>
+    <string name="note_text">; Ghi chú: %1$s</string>
+    //Payment
+    <string name="payment_title">Thanh toán</string>
+    <string name="payment_method_prompt">Bạn muốn thanh toán bằng?</string>
+    <string name="payment_option_cash">💵 Tiền mặt</string>
+    <string name="payment_option_card">💳 Thẻ ngân hàng</string>
+    <string name="payment_option_mobile_app">📱 Ứng dụng điện thoại</string>
+    <string name="confirm_payment_button">Xác nhận thanh toán</string>
+    //Review
+    <string name="customer_reviews_title">Đánh Giá Từ Khách Hàng</string>
+    //Item Review
+    <string name="review_comment_placeholder">Bình luận</string>
+    <string name="review_user_placeholder">Người dùng</string>
+    //Terms
+    <string name="terms_title">ĐIỀU LỆ và ĐIỀU KHOẢN</string>
+    <string name="terms_content">
+1. Giới thiệu\n
+Chào mừng bạn đến với ứng dụng của chúng tôi! Bằng việc sử dụng dịch vụ, bạn đồng ý với các điều khoản dưới đây.\n
+2. Chấp nhận điều khoản\n
+Khi sử dụng ứng dụng, bạn cam kết tuân thủ mọi quy định và điều khoản mà chúng tôi đưa ra.\n
+3. Quyền và nghĩa vụ\n
+Bạn không được sử dụng ứng dụng cho mục đích trái pháp luật hoặc làm ảnh hưởng đến người khác.\n
+4. Bảo mật thông tin\n
+Thông tin cá nhân của bạn sẽ được chúng tôi bảo vệ và chỉ sử dụng khi được phép.\n
+5. Sửa đổi điều khoản\n
+Chúng tôi có quyền cập nhật nội dung điều khoản bất cứ lúc nào.\n
+6. Liên hệ\n
+Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi qua email: pizzahot@gmail.com
+    </string>
+    //User
+    <string name="user_avatar_description">Avatar người dùng</string>
+    <string name="account_settings_title">Cài Đặt Tài Khoản</string>
+    <string name="track_order_option">Theo dõi đơn hàng</string>
+    <string name="navigation_arrow_description">Mũi tên điều hướng</string>
+    <string name="membership_option">Thành viên</string>
+    <string name="account_icon_description">Icon tài khoản</string>
+    <string name="notifications_option">Thông báo</string>
+    <string name="notification_icon_description">Icon thông báo</string>
+    <string name="contact_option">Liên hệ</string>
+    <string name="contact_icon_description">Icon liên hệ</string>
+    <string name="facebook_icon_description">Icon Facebook</string>
+    <string name="email_icon_description">Icon email</string>
+    <string name="switch_to_english_option">Chuyển sang Tiếng Anh</string>
+    <string name="support_email">Gmail: support@pizzapp.vn</string>
+    //Logout
+    <string name="logout_confirm_title">Xác nhận đăng xuất</string>
+    <string name="logout_confirm_message">Bạn có chắc chắn muốn đăng xuất không?</string>
+    <string name="logout_confirm_yes">Đăng xuất</string>
+    <string name="logout_confirm_no">Hủy</string>
+    //Nav menu
+    <string name="home">Trang chủ</string>
+    <string name="menu">Thực đơn</string>
+    <string name="cart">Giỏ hàng</string>
+    <string name="user">Trang cá nhân</string>
+    <string name="review">Đánh giá</string>
+    <string name="logout">Đăng xuất</string>
+</resources>

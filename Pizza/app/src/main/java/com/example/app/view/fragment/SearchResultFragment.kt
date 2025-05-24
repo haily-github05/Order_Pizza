@@ -37,8 +37,6 @@ class SearchResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("SearchFragment", "Khởi tạo SearchResultFragment")
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
         adapter = MenuAdapter(
@@ -50,7 +48,6 @@ class SearchResultFragment : Fragment() {
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
-        Log.d("SearchFragment", "RecyclerView: layoutManager và adapter đã được gán")
 
         setupSearchBar()
         observeViewModel()

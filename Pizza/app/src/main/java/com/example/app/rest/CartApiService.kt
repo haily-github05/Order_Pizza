@@ -3,9 +3,11 @@ package com.example.app.rest
 import androidx.room.FtsOptions
 import com.example.app.model.Carts
 import com.example.app.model.Orders
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.Field
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -20,16 +22,23 @@ interface CartApiService {
 
     @GET("cart_get.php")
     suspend fun getCartItems(@Query("tableNumber") tableNumber: String): Response<List<Carts>>
+
     @FormUrlEncoded
     @PUT("cart_update.php")
-    suspend fun updateCartItem(@Body cartItem: Map<String, String>): Response<Void>
+    suspend fun updateCartItem(@FieldMap cartItem: Map<String, String>): Response<Void>
+
+    @FormUrlEncoded
+    @PUT("cart_update_note.php")
+    suspend fun updateCartNote(
+        @Field("idProducts") idProducts: String,
+        @Field("table_number") tableNumber: String,
+        @Field("note") note: String?
+    ): Response<Void>
 
     @POST("cart_delete.php")
     suspend fun deleteCartItem(@Body cartItem: Map<String, String>): Response<Void>
 
-//    @POST("cart_submit.php")
-//    suspend fun submitOrder(@Body orderData: Map<String, @JvmSuppressWildcards Any>): Response<Void>
+    @POST("cart_clear.php")
+    fun clearCart(@Body body: Map<String, String>): Call<Void>
 
-    @DELETE("cart_clear.php")
-    suspend fun clearCart(): Response<Unit>
 }

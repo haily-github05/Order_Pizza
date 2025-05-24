@@ -11,19 +11,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.app.R
 import com.example.app.databinding.FragmentLogin2Binding
 import com.example.app.view.activity.MainActivity
 import com.example.app.viewmodel.CartViewModel
 import com.example.app.viewmodel.LoginViewModel
 import com.example.app.rest.RetrofitClient
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.util.regex.Pattern
 
 class Login2Fragment : Fragment() {
     private var _binding: FragmentLogin2Binding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var cartViewModel: CartViewModel
-
+    private var generatedOTP: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,73 +62,61 @@ class Login2Fragment : Fragment() {
 
                 cartViewModel.setTableNumber(tableNumber)
 
-                Toast.makeText(requireContext(), "Đăng nhập thành công! Bàn số: $tableNumber", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.enter_login ,tableNumber), Toast.LENGTH_LONG).show()
 
-                // Navigate to MainActivity
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             } else {
-                Toast.makeText(requireContext(), "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_login), Toast.LENGTH_LONG).show()
             }
         }
 
         binding.checkOTP.setOnClickListener {
-            val phoneNumber = binding.TextPhone.text.toString().trim()
-            if (phoneNumber.isEmpty()) {
-                Toast.makeText(requireContext(), "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show()
+            val email = binding.editTextEmail.text.toString().trim()
+            if (!isValidEmail(email)) {
+                Toast.makeText(requireContext(), "Email không hợp lệ", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                try {
-                    val otp = (100000..999999).random().toString()
-                    val message = "Mã OTP của bạn là: $otp"
-                    val response = RetrofitClient.apiService.sendOtp(phoneNumber, message)
+            val otp = (100000..999999).random().toString()
+            generatedOTP = otp
 
-                    if (response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "OTP đã gửi tới $phoneNumber",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        binding.checkOTP.apply {
-                            isEnabled = false
-                            text = "Đã gửi mã"
-                        }
-                    } else {
-                        Toast.makeText(requireContext(), "Gửi OTP thất bại", Toast.LENGTH_SHORT).show()
-                    }
-                } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Lỗi: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
+            viewModel.sendOtpToEmail(email, otp) { success, message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.signInButton.setOnClickListener {
             val phone = binding.TextPhone.text.toString().trim()
-            val otp = binding.OTP.text.toString().trim()
             val tableNumber = binding.editTextNumber.text.toString().trim()
+            val enteredOtp = binding.OTP.text.toString().trim()
 
             when {
                 phone.isEmpty() -> {
-                    Toast.makeText(requireContext(), "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_phone), Toast.LENGTH_SHORT).show()
                 }
-                otp.isEmpty() -> {
-                    Toast.makeText(requireContext(), "Vui lòng nhập mã OTP", Toast.LENGTH_SHORT).show()
+                enteredOtp.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.enter_otp), Toast.LENGTH_SHORT).show()
                 }
                 tableNumber.isEmpty() -> {
-                    Toast.makeText(requireContext(), "Vui lòng nhập số bàn", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),getString(R.string.enter_number), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    if (otp == "123456") {
+                    if (enteredOtp == generatedOTP) {
                         viewModel.validateLogin(phone)
+                        Toast.makeText(requireContext(), getString(R.string.enter_login ,tableNumber), Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(requireContext(), "Mã OTP không đúng", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.error_otp), Toast.LENGTH_LONG).show()
                     }
                 }
             }
         }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
+        return pattern.matcher(email).matches()
     }
 
     override fun onDestroyView() {

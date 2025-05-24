@@ -24,17 +24,17 @@
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MUA 1 TẶNG 1 PIZZA"
+            android:text="@string/promo_title_placeholder"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
-            android:textColor="#000000" />
+            android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mua Pizza Cỡ Vừa + Nước"
+            android:text="@string/promo_description_placeholder"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginTop="4dp"/>
@@ -42,7 +42,7 @@
             android:id="@+id/priceTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giá: 369.000đ"
+            android:text="@string/promo_price_placeholder"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#FF5722"
@@ -51,7 +51,7 @@
             android:id="@+id/selectButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm vào giỏ hàng"
+            android:text="@string/add_to_cart_button"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:backgroundTint="#FF0000"

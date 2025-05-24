@@ -65,7 +65,8 @@ class HomeAdapter(
                 name = product.name,
                 price = product.price,
                 quantity = 1,
-                tableNumber = tableNumber
+                tableNumber = tableNumber,
+                note =""
             )
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -74,15 +75,17 @@ class HomeAdapter(
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             onAddToCart(cartItem)
+                            val context = holder.itemView.context
                             Toast.makeText(
-                                holder.itemView.context,
-                                "${product.name} đã thêm vào giỏ hàng!",
+                                context,
+                                context.getString(R.string.add_product, product.name),
                                 Toast.LENGTH_SHORT
                             ).show()
+
                         } else {
                             Toast.makeText(
                                 holder.itemView.context,
-                                "Lỗi thêm giỏ: ${response.code()}",
+                                "${response.code()}",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -91,7 +94,7 @@ class HomeAdapter(
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
                             holder.itemView.context,
-                            "Lỗi: ${e.message}",
+                            "${e.message}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

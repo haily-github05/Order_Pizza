@@ -6,18 +6,9 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_marginBottom="16dp"
-    android:background="@drawable/item_background"
+    android:background="@drawable/feedback_item_background"
     android:elevation="4dp">
 
-    <!-- Hình ảnh sản phẩm -->
-<!--    <ImageView-->
-<!--        android:id="@+id/placeholder_image"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:layout_marginBottom="12dp"-->
-<!--        android:background="@drawable/imageborder"-->
-<!--        android:clipToOutline="true"/>-->
     <ImageView
         android:id="@+id/placeholder_image"
         android:layout_width="match_parent"
@@ -28,7 +19,6 @@
         android:clipToOutline="true"
         android:visibility="gone"/>
 
-
     <!-- Đánh giá sao -->
     <RatingBar
         android:id="@+id/ratingBar"
@@ -38,6 +28,7 @@
         android:stepSize="0.5"
         android:isIndicator="true"
         android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
         android:theme="@style/CustomRatingBar"/>
 
     <!-- Bình luận đánh giá -->
@@ -45,9 +36,8 @@
         android:id="@+id/reviewComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bình luận"
+        android:text="@string/review_comment_placeholder"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
         android:layout_marginBottom="8dp"/>
 
     <!-- Số điện thoại hoặc tên người dùng -->
@@ -55,9 +45,17 @@
         android:id="@+id/reviewPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Người dùng"
+        android:text="@string/review_user_placeholder"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/reviewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/review_time_placeholder"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray" />
 
 </LinearLayout>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="CustomRatingBar" parent="Theme.MaterialComponents.DayNight">
-        <item name="colorControlActivated">@color/yellow</item> <!-- vàng -->
-    </style>
-
-</resources>

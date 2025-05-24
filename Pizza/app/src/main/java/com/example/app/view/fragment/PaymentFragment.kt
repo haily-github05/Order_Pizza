@@ -94,7 +94,6 @@ class PaymentFragment : BottomSheetDialogFragment() {
         try {
             val smsManager = SmsManager.getDefault()
             smsManager.sendTextMessage(phoneNumber, null, "Khách BÀN $tableNumber yêu cầu thanh toán bằng tiền mặt.", null, null)
-            Toast.makeText(requireContext(), "Đã gửi tin nhắn đến nhân viên!", Toast.LENGTH_SHORT).show()
             moveCartToOrderHistory()
         } catch (e: Exception) {
             Toast.makeText(requireContext(), "Gửi thất bại: ${e.message}", Toast.LENGTH_LONG).show()
@@ -111,7 +110,6 @@ class PaymentFragment : BottomSheetDialogFragment() {
         try {
             val smsManager = SmsManager.getDefault()
             smsManager.sendTextMessage(phoneNumber, null, "Khách BÀN $tableNumber yêu cầu thanh toán bằng thẻ.", null, null)
-            Toast.makeText(requireContext(), "Đã gửi tin nhắn đến nhân viên!", Toast.LENGTH_SHORT).show()
             moveCartToOrderHistory()
         } catch (e: Exception) {
             Toast.makeText(requireContext(), "Gửi thất bại: ${e.message}", Toast.LENGTH_LONG).show()
@@ -151,8 +149,9 @@ class PaymentFragment : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     if (isAdded) {
                         if (response.isSuccessful) {
-                            clearCart()
+                            Toast.makeText(requireContext(), "Đã thanh toán" )
                             dismiss()
+                            clearCart()
                         } else {
                             Toast.makeText(requireContext(), "Lỗi lưu đơn hàng: ${response.code()}", Toast.LENGTH_SHORT).show()
                         }
@@ -169,14 +168,25 @@ class PaymentFragment : BottomSheetDialogFragment() {
     }
 
     private fun clearCart() {
+        val sharedPref = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val tableNumber = sharedPref.getString("TABLE_NUMBER", "") ?: ""
+
+        if (tableNumber.isEmpty()) {
+            Toast.makeText(requireContext(), "Số bàn không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val body = mapOf("table_number" to tableNumber)
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitClient.cartApi.clearCart()
+                val response = RetrofitClient.cartApi.clearCart(body).execute()
                 withContext(Dispatchers.Main) {
-                    if (isAdded) { // Kiểm tra fragment còn gắn vào activity
+                    if (isAdded) {
                         if (response.isSuccessful) {
                             cartViewModel.setCartItems(emptyList())
                             cartAdapter.updateData(emptyList())
+
                         } else {
                             Toast.makeText(requireContext(), "Lỗi xóa giỏ hàng: ${response.code()}", Toast.LENGTH_SHORT).show()
                         }

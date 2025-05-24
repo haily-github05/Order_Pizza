@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.example.app.MenuPizzaFragment
 import com.example.app.R
 import com.example.app.rest.RetrofitClient.apiService
+import com.example.app.rest.RetrofitClient.cartApi
 import com.example.app.view.fragment.CartFragment
 import com.example.app.view.fragment.HomeFragment
 import com.example.app.view.fragment.NotificationFragment
@@ -31,12 +32,14 @@ import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        loadLocale()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -119,6 +122,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_order -> loadFragment(OrderPizzaFragment())
             R.id.nav_user -> loadFragment(UserFragment())
             R.id.nav_review -> loadFragment(ReviewFragment())
+            R.id.language -> {
+                switchLanguage()
+            }
             R.id.nav_logout -> {
                 showLogoutConfirmationDialog()
             }
@@ -129,33 +135,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     private fun showLogoutConfirmationDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Xác nhận đăng xuất")
-            .setMessage("Bạn có chắc chắn muốn đăng xuất không?")
-            .setPositiveButton("Đăng xuất") { _, _ ->
-                // Gọi hàm xóa giỏ hàng từ server và đăng xuất
+            .setTitle(getString(R.string.logout_confirm_title))
+            .setMessage(getString(R.string.logout_confirm_message))
+            .setPositiveButton(getString(R.string.logout_confirm_yes)) { _, _ ->
                 clearCartAndLogout()
             }
-            .setNegativeButton("Hủy", null)
+            .setNegativeButton(getString(R.string.logout_confirm_no), null)
             .show()
     }
 
+
     private fun clearCartAndLogout() {
-        // Xóa giỏ hàng từ SharedPreferences nếu có
-        val sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE)
-        sharedPreferences.edit().clear().apply() // Xóa dữ liệu cục bộ
+        // Lấy số bàn từ SharedPreferences
+        val sharedPref = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        val tableNumber = sharedPref.getString("TABLE_NUMBER", "")
+
+        if (tableNumber.isNullOrEmpty()) {
+            Toast.makeText(this, "Số bàn không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Chuẩn bị body cho API
+        val body = mapOf("table_number" to tableNumber)
 
         // Gọi API xóa giỏ hàng từ server
-        apiService.clearCart().enqueue(object : Callback<Void> {
+        cartApi.clearCart(body).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Log.d("ClearCart", "Xóa giỏ hàng thành công")
-                    // Sau khi xóa giỏ hàng từ server, chuyển về màn hình HelloApp hoặc màn hình đăng nhập
+                    sharedPref.edit().clear().apply()
                     val intent = Intent(this@MainActivity, HelloApp::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 } else {
                     Log.e("ClearCart", "Lỗi server: ${response.code()}")
-                    Toast.makeText(this@MainActivity, "Không thể xóa giỏ hàng (Server error)", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "Không thể xóa giỏ hàng (Lỗi server)", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -165,10 +179,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
     }
+    private fun switchLanguage() {
+        val currentLang = getSharedPreferences("Settings", MODE_PRIVATE)
+            .getString("language", "vi") ?: "vi"
 
+        val newLang = if (currentLang == "vi") "en" else "vi"
+
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("language", newLang)
+        editor.apply()
+
+        setLocale(newLang)
+        recreate()
+    }
+
+    private fun setLocale(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
+    private fun loadLocale() {
+        val sharedPref = getSharedPreferences("Settings", MODE_PRIVATE)
+        val lang = sharedPref.getString("language", "vi")
+        setLocale(lang ?: "vi")
+    }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.popup_menu, menu)
     }
 }

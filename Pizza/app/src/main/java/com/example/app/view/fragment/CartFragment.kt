@@ -43,7 +43,7 @@ class CartFragment : Fragment() {
 
         val sharedPref = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         val tableNumber = sharedPref.getString("TABLE_NUMBER", "") ?: ""
-        binding.tableNumberText.text = "Bàn số: $tableNumber"
+        binding.tableNumberText.text = getString(R.string.table, tableNumber)
 
         cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
         cartViewModel.setTableNumber(tableNumber)

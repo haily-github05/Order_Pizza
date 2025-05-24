@@ -15,7 +15,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ĐIỀU LỆ và ĐIỀU KHOẢN"
+            android:text="@string/terms_title"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/red"
@@ -29,19 +29,7 @@
             android:textSize="17dp"
             android:textColor="@color/black"
             android:lineSpacingExtra="6dp"
-            android:text="
-1. Giới thiệu\n
-Chào mừng bạn đến với ứng dụng của chúng tôi! Bằng việc sử dụng dịch vụ, bạn đồng ý với các điều khoản dưới đây.\n
-2. Chấp nhận điều khoản\n
-Khi sử dụng ứng dụng, bạn cam kết tuân thủ mọi quy định và điều khoản mà chúng tôi đưa ra.\n
-3. Quyền và nghĩa vụ\n
-Bạn không được sử dụng ứng dụng cho mục đích trái pháp luật hoặc làm ảnh hưởng đến người khác.\n
-4. Bảo mật thông tin\n
-Thông tin cá nhân của bạn sẽ được chúng tôi bảo vệ và chỉ sử dụng khi được phép.\n
-5. Sửa đổi điều khoản\n
-Chúng tôi có quyền cập nhật nội dung điều khoản bất cứ lúc nào.\n
-6. Liên hệ\n
-Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi qua email: pizzahot@gmail.com" />
+            android:text="@string/terms_content" />
 
     </LinearLayout>
 </ScrollView>
